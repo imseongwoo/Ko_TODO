@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
+    kotlin("plugin.jpa") version "1.8.22"
 }
 
 group = "org.example"
@@ -31,9 +32,11 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 //    implementation("com.h2database:h2")
 
     runtimeOnly("org.postgresql:postgresql")
+
 }
 
 tasks.withType<KotlinCompile> {
