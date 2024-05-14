@@ -30,6 +30,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+//    implementation("com.h2database:h2")
+
+    runtimeOnly("org.postgresql:postgresql")
 }
 
 tasks.withType<KotlinCompile> {
