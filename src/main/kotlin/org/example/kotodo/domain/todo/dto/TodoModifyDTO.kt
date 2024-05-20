@@ -1,7 +1,7 @@
 package org.example.kotodo.domain.todo.dto
 
 data class TodoModifyDTO(
-    var title: String,
-    var content: String,
-    var writer: String,
+    val title: String,
+    val content: String,
+    val writer: String,
 )
