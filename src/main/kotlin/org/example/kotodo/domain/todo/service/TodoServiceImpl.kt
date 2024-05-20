@@ -47,8 +47,7 @@ class TodoServiceImpl(
             Todo(
                 title = createDTO.title,
                 content = createDTO.content,
-                writer = createDTO.writer,
-                createdDate = createDTO.createdDate
+                writer = createDTO.writer
             )
         ).toDTO()
     }
@@ -57,7 +56,6 @@ class TodoServiceImpl(
         return TodoDTO(
             title = title,
             content = content,
-            createdDate = createdDate,
             writer = writer
         )
     }

@@ -1,6 +1,7 @@
 package org.example.kotodo.domain.todo.model
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -13,7 +14,7 @@ class Todo(
     var content: String,
 
     @Column(name = "created_date", nullable = false)
-    val createdDate: Date,
+    val createdDate: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "writer", nullable = false)
     var writer: String,
