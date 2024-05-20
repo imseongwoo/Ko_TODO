@@ -26,11 +26,12 @@ class TodoServiceImpl(
     @Transactional
     override fun modifyTodo(todoId: Long, todoModifyDTO: TodoModifyDTO): TodoDTO {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
-        val (title, content, writer) = todoModifyDTO
+        val (title, content, writer, complete) = todoModifyDTO
         with(todo) {
             this.title = title
             this.content = content
             this.writer = writer
+            this.complete = complete
         }
         return todoRepository.save(todo).toDTO()
     }
@@ -56,7 +57,8 @@ class TodoServiceImpl(
         return TodoDTO(
             title = title,
             content = content,
-            writer = writer
+            writer = writer,
+            complete = complete
         )
     }
 }

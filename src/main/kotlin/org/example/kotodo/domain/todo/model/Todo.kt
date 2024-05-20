@@ -18,6 +18,9 @@ class Todo(
 
     @Column(name = "writer", nullable = false)
     var writer: String,
+
+    @Column(name = "complete_status", nullable = true)
+    var complete: Boolean = false
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
