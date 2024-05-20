@@ -1,6 +1,6 @@
 package org.example.kotodo.domain.todo.service
 
-import org.example.kotodo.domain.exception.ModelNotFoundException
+import org.example.kotodo.domain.common.exception.ModelNotFoundException
 import org.example.kotodo.domain.todo.dto.TodoCreateDTO
 import org.example.kotodo.domain.todo.dto.TodoDTO
 import org.example.kotodo.domain.todo.dto.TodoModifyDTO

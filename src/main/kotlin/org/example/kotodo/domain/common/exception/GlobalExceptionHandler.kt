@@ -1,6 +1,6 @@
-package org.example.kotodo.domain.exception
+package org.example.kotodo.domain.common.exception
 
-import org.example.kotodo.domain.exception.dto.ErrorDTO
+import org.example.kotodo.domain.common.exception.dto.ErrorDTO
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
