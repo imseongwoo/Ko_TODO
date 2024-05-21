@@ -1,8 +1,8 @@
 package org.example.kotodo.domain.todo.model
 
 import jakarta.persistence.*
+import org.example.kotodo.domain.comment.model.Comment
 import java.time.LocalDateTime
-import java.util.*
 
 @Entity
 @Table(name = "todo")
@@ -20,7 +20,11 @@ class Todo(
     var writer: String,
 
     @Column(name = "complete_status", nullable = true)
-    var complete: Boolean = false
+    var complete: Boolean = false,
+
+    @OneToMany(mappedBy = "todo", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    val comments: MutableList<Comment> = mutableListOf()
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
