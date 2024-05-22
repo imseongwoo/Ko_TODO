@@ -6,9 +6,11 @@ import org.example.kotodo.domain.todo.dto.TodoDTO
 import org.example.kotodo.domain.todo.dto.TodoModifyDTO
 import org.example.kotodo.domain.todo.model.Todo
 import org.example.kotodo.domain.todo.repository.TodoRepository
+import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 class TodoServiceImpl(
@@ -19,8 +21,13 @@ class TodoServiceImpl(
         return todo.toDTO()
     }
 
-    override fun getTodoList(): List<TodoDTO> {
-        return todoRepository.findAll().map { it.toDTO() }
+    override fun getTodoList(sortOrder: String?): List<TodoDTO> {
+        val todos = when (sortOrder?.lowercase(Locale.getDefault())) {
+            "asc" -> todoRepository.findAll(Sort.by(Sort.Direction.ASC, "createdDate"))
+            "desc" -> todoRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"))
+            else -> todoRepository.findAll()
+        }
+        return todos.map { it.toDTO() }
     }
 
     @Transactional

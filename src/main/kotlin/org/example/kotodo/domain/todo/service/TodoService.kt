@@ -7,7 +7,7 @@ import org.example.kotodo.domain.todo.dto.TodoModifyDTO
 interface TodoService {
     fun getTodo(todoId: Long): TodoDTO
 
-    fun getTodoList(): List<TodoDTO>
+    fun getTodoList(sortOrder: String?): List<TodoDTO>
 
     fun modifyTodo(todoId: Long, todoModifyDTO: TodoModifyDTO): TodoDTO
 

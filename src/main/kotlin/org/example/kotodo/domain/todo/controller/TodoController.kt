@@ -20,11 +20,10 @@ class TodoController(
             .body(todoService.getTodo(todoId))
     }
 
-    @GetMapping()
-    fun getTodoList(): ResponseEntity<List<TodoDTO>>
-    {
+    @GetMapping
+    fun getTodoList(@RequestParam(required = false) sortOrder: String?): ResponseEntity<List<TodoDTO>> {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(todoService.getTodoList())
+            .body(todoService.getTodoList(sortOrder))
     }
 
     @PostMapping()
