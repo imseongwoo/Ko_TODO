@@ -21,14 +21,23 @@ class TodoServiceImpl(
         return todo.toDTO()
     }
 
-    override fun getTodoList(sortOrder: String?): List<TodoDTO> {
-        val todos = when (sortOrder?.lowercase(Locale.getDefault())) {
-            "asc" -> todoRepository.findAll(Sort.by(Sort.Direction.ASC, "createdDate"))
-            "desc" -> todoRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"))
-            else -> todoRepository.findAll()
+    override fun getTodoList(sortOrder: String?, writer: String?): List<TodoDTO> {
+        val todos = if (writer != null) {
+            when (sortOrder?.lowercase(Locale.getDefault())) {
+                "asc" -> todoRepository.findByWriter(writer, Sort.by(Sort.Direction.ASC, "createdDate"))
+                "desc" -> todoRepository.findByWriter(writer, Sort.by(Sort.Direction.DESC, "createdDate"))
+                else -> todoRepository.findByWriter(writer)
+            }
+        } else {
+            when (sortOrder?.lowercase(Locale.getDefault())) {
+                "asc" -> todoRepository.findAll(Sort.by(Sort.Direction.ASC, "createdDate"))
+                "desc" -> todoRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"))
+                else -> todoRepository.findAll()
+            }
         }
         return todos.map { it.toDTO() }
     }
+
 
     @Transactional
     override fun modifyTodo(todoId: Long, todoModifyDTO: TodoModifyDTO): TodoDTO {
