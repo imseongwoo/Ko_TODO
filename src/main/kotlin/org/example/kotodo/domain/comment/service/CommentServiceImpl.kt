@@ -10,6 +10,7 @@ import org.example.kotodo.domain.common.exception.ModelNotFoundException
 import org.example.kotodo.domain.todo.repository.TodoRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CommentServiceImpl(
@@ -26,6 +27,7 @@ class CommentServiceImpl(
         return comment.toDTO()
     }
 
+    @Transactional
     override fun postComment(todoId: Long, commentPostDTO: CommentPostDTO): CommentDTO {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
         val comment = Comment(
@@ -37,6 +39,7 @@ class CommentServiceImpl(
         return commentRepository.save(comment).toDTO()
     }
 
+    @Transactional
     override fun modifyComment(todoId: Long, commentId: Long, commentModifyDTO: CommentModifyDTO): CommentDTO {
         val (content, password, writer) = commentModifyDTO
         val comment = getValidComment(commentId)
@@ -46,6 +49,7 @@ class CommentServiceImpl(
         return commentRepository.save(comment).toDTO()
     }
 
+    @Transactional
     override fun deleteComment(todoId: Long, commentId: Long) {
         val comment = getValidComment(commentId)
         isTodoAndCommentAreSame(todoId, comment)
