@@ -1,11 +1,14 @@
 package org.example.kotodo.domain.todo.controller
 
+import jakarta.validation.Valid
+import org.example.kotodo.domain.common.exception.InvalidateDTOError
 import org.example.kotodo.domain.todo.dto.TodoCreateDTO
 import org.example.kotodo.domain.todo.dto.TodoDTO
 import org.example.kotodo.domain.todo.dto.TodoModifyDTO
 import org.example.kotodo.domain.todo.service.TodoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -29,15 +32,27 @@ class TodoController(
             .body(todoService.getTodoList(sortOrder, writer))
     }
 
-    @PostMapping()
-    fun crateTodo(@RequestBody todoDTO: TodoCreateDTO): ResponseEntity<TodoDTO> {
+    @PostMapping
+    fun createTodo(
+        @Valid @RequestBody todoDTO: TodoCreateDTO,
+        bindingResult: BindingResult
+    ): ResponseEntity<TodoDTO> {
+        if (bindingResult.hasErrors()) {
+            throw InvalidateDTOError("todoCreateDTO", bindingResult.fieldError?.defaultMessage ?: "")
+        }
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(todoService.createTodo(todoDTO))
     }
 
     @PutMapping("/{todoId}")
-    fun modifyTodo(@PathVariable todoId: Long, @RequestBody todoModifyDTO: TodoModifyDTO)
-            : ResponseEntity<TodoDTO> {
+    fun modifyTodo(
+        @PathVariable todoId: Long,
+        @Valid @RequestBody todoModifyDTO: TodoModifyDTO,
+        bindingResult: BindingResult
+    ): ResponseEntity<TodoDTO> {
+        if (bindingResult.hasErrors()) {
+            throw InvalidateDTOError("todoModifyDTO", bindingResult.fieldError?.defaultMessage ?: "")
+        }
         return ResponseEntity.status(HttpStatus.OK)
             .body(todoService.modifyTodo(todoId, todoModifyDTO))
     }
