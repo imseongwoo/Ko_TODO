@@ -2,6 +2,7 @@ package org.example.kotodo.domain.todo.model
 
 import jakarta.persistence.*
 import org.example.kotodo.domain.comment.model.Comment
+import org.example.kotodo.domain.todo.dto.TodoDTO
 import java.time.LocalDateTime
 
 @Entity
@@ -29,4 +30,14 @@ class Todo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+    fun toTodoDTO(): TodoDTO {
+        return TodoDTO(
+            title = this.title,
+            content = this.content,
+            writer = this.writer,
+            complete = this.complete,
+            comments = this.comments.map { it.toCommentDTO() }
+        )
+    }
 }

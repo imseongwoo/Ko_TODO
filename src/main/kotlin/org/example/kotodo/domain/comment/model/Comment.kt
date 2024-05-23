@@ -1,6 +1,7 @@
 package org.example.kotodo.domain.comment.model
 
 import jakarta.persistence.*
+import org.example.kotodo.domain.comment.dto.CommentDTO
 import org.example.kotodo.domain.todo.model.Todo
 
 @Entity
@@ -26,5 +27,13 @@ class Comment(
     fun modifyComment(content: String)
     {
         this.content = content
+    }
+
+    fun toCommentDTO(): CommentDTO {
+        return  CommentDTO(
+            id = this.id,
+            content = this.content,
+            writer = this.writer
+        )
     }
 }

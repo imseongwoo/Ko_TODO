@@ -18,7 +18,7 @@ class TodoServiceImpl(
 ) : TodoService {
     override fun getTodo(todoId: Long): TodoDTO {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
-        return todo.toDTO()
+        return todo.toTodoDTO()
     }
 
     override fun getTodoList(pageable: Pageable, writer: String?): Page<TodoDTO> {
@@ -28,7 +28,7 @@ class TodoServiceImpl(
             todoRepository.findAll(pageable)
         }
 
-        return todos.map { it.toDTO() }
+        return todos.map { it.toTodoDTO() }
     }
 
     @Transactional
@@ -41,7 +41,7 @@ class TodoServiceImpl(
             this.writer = writer
             this.complete = complete
         }
-        return todoRepository.save(todo).toDTO()
+        return todoRepository.save(todo).toTodoDTO()
     }
 
     @Transactional
@@ -58,15 +58,7 @@ class TodoServiceImpl(
                 content = createDTO.content,
                 writer = createDTO.writer
             )
-        ).toDTO()
+        ).toTodoDTO()
     }
 
-    private fun Todo.toDTO(): TodoDTO {
-        return TodoDTO(
-            title = title,
-            content = content,
-            writer = writer,
-            complete = complete
-        )
-    }
 }
