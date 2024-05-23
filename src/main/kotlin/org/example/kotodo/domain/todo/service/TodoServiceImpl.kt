@@ -6,11 +6,11 @@ import org.example.kotodo.domain.todo.dto.TodoDTO
 import org.example.kotodo.domain.todo.dto.TodoModifyDTO
 import org.example.kotodo.domain.todo.model.Todo
 import org.example.kotodo.domain.todo.repository.TodoRepository
-import org.springframework.data.domain.Sort
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class TodoServiceImpl(
@@ -21,23 +21,15 @@ class TodoServiceImpl(
         return todo.toDTO()
     }
 
-    override fun getTodoList(sortOrder: String?, writer: String?): List<TodoDTO> {
+    override fun getTodoList(pageable: Pageable, writer: String?): Page<TodoDTO> {
         val todos = if (writer != null) {
-            when (sortOrder?.lowercase(Locale.getDefault())) {
-                "asc" -> todoRepository.findByWriter(writer, Sort.by(Sort.Direction.ASC, "createdDate"))
-                "desc" -> todoRepository.findByWriter(writer, Sort.by(Sort.Direction.DESC, "createdDate"))
-                else -> todoRepository.findByWriter(writer)
-            }
+            todoRepository.findByWriter(writer, pageable)
         } else {
-            when (sortOrder?.lowercase(Locale.getDefault())) {
-                "asc" -> todoRepository.findAll(Sort.by(Sort.Direction.ASC, "createdDate"))
-                "desc" -> todoRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"))
-                else -> todoRepository.findAll()
-            }
+            todoRepository.findAll(pageable)
         }
+
         return todos.map { it.toDTO() }
     }
-
 
     @Transactional
     override fun modifyTodo(todoId: Long, todoModifyDTO: TodoModifyDTO): TodoDTO {

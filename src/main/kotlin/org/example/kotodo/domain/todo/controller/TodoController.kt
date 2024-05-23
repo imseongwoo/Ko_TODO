@@ -6,6 +6,8 @@ import org.example.kotodo.domain.todo.dto.TodoCreateDTO
 import org.example.kotodo.domain.todo.dto.TodoDTO
 import org.example.kotodo.domain.todo.dto.TodoModifyDTO
 import org.example.kotodo.domain.todo.service.TodoService
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
@@ -25,11 +27,13 @@ class TodoController(
 
     @GetMapping
     fun getTodoList(
-        @RequestParam(required = false) sortOrder: String?,
+        @PageableDefault(size = 5) pageable: Pageable,
         @RequestParam(required = false) writer: String?
     ): ResponseEntity<List<TodoDTO>> {
+        val todosPage = todoService.getTodoList(pageable, writer)
+        val todosContent = todosPage.content
         return ResponseEntity.status(HttpStatus.OK)
-            .body(todoService.getTodoList(sortOrder, writer))
+            .body(todosContent)
     }
 
     @PostMapping
