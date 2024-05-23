@@ -7,7 +7,7 @@
 
 ### 🔍 Usecase Diagram
 <br>
-<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/Health-Assistant-AOS/assets/26344560/41decbe7-ac92-4763-9652-41691426c19d">
+<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/snore_tracker/assets/26344560/be03cac6-9d3d-42aa-b2e6-c235c1257c2d">
 
 <br/>
 <br/>
@@ -15,10 +15,10 @@
 
 ### 🎨 ERD
 
-<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/Health-Assistant-AOS/assets/26344560/5ff4a4df-ea5d-478f-aabe-4e9e09e4a008" style="margin-right: 10px;"/>
+<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/snore_tracker/assets/26344560/b513ede7-205a-445d-ab86-d66f1950812d" style="margin-right: 10px;"/>
 
 
 ### [🎨API 명세](https://imseongwoo.notion.site/TODO-API-97ce214d3ce84fcda673e6c328f1a5fa?pvs=4)
 
-<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/Health-Assistant-AOS/assets/26344560/4c1e579b-47f5-432f-9491-7c75d88c7a5b" style="margin-right: 10px;"/>
+<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/snore_tracker/assets/26344560/2d8e3342-7404-416c-84df-debe8a42fbee" style="margin-right: 10px;"/>
 
