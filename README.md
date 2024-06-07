@@ -7,7 +7,7 @@
 
 ### 🔍 Usecase Diagram
 <br>
-<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/snore_tracker/assets/26344560/be03cac6-9d3d-42aa-b2e6-c235c1257c2d">
+<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/Ko_TODO/assets/26344560/d2e227f4-b097-4fbf-8761-f727df881e70">
 
 <br/>
 <br/>
