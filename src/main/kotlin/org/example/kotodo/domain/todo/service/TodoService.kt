@@ -15,5 +15,5 @@ interface TodoService {
 
     fun deleteTodo(todoId: Long)
 
-    fun createTodo(createDTO: TodoCreateDTO): TodoDTO
+    fun createTodo(createDTO: TodoCreateDTO, userId: Long): TodoDTO
 }

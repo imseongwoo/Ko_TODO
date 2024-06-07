@@ -23,6 +23,9 @@ class Todo(
     @Column(name = "complete_status", nullable = true)
     var complete: Boolean = false,
 
+    @Column(name = "user_id", nullable = false)
+    var userId: Long,
+
     @OneToMany(mappedBy = "todo", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     val comments: MutableList<Comment> = mutableListOf()
 

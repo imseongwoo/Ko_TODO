@@ -51,14 +51,19 @@ class TodoServiceImpl(
     }
 
     @Transactional
-    override fun createTodo(createDTO: TodoCreateDTO): TodoDTO {
+    override fun createTodo(createDTO: TodoCreateDTO, userId: Long): TodoDTO {
         return todoRepository.save(
             Todo(
                 title = createDTO.title,
                 content = createDTO.content,
-                writer = createDTO.writer
+                writer = createDTO.writer,
+                userId = userId
             )
         ).toTodoDTO()
     }
 
+    fun isOwner(todoId: Long, userId: Long): Boolean {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
+        return todo.userId == userId
+    }
 }
