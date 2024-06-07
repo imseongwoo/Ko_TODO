@@ -28,31 +28,38 @@ class CommentServiceImpl(
     }
 
     @Transactional
-    override fun postComment(todoId: Long, commentPostDTO: CommentPostDTO): CommentDTO {
+    override fun postComment(todoId: Long, commentPostDTO: CommentPostDTO, userId: Long): CommentDTO {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
         val comment = Comment(
             content = commentPostDTO.content,
             writer = commentPostDTO.writer,
             password = commentPostDTO.password,
+            userId = userId,
             todo = todo
         )
         return commentRepository.save(comment).toDTO()
     }
 
     @Transactional
-    override fun modifyComment(todoId: Long, commentId: Long, commentModifyDTO: CommentModifyDTO): CommentDTO {
+    override fun modifyComment(
+        todoId: Long,
+        commentId: Long,
+        commentModifyDTO: CommentModifyDTO,
+        userId: Long
+    ): CommentDTO {
         val (content, password, writer) = commentModifyDTO
         val comment = getValidComment(commentId)
         isTodoAndCommentAreSame(todoId, comment)
-        if (writer != comment.writer || password != comment.password) throw InfoNotMatchException("$writer $password")
+        if (writer != comment.writer || userId != comment.userId) throw InfoNotMatchException("$writer $userId")
         comment.modifyComment(content)
         return commentRepository.save(comment).toDTO()
     }
 
     @Transactional
-    override fun deleteComment(todoId: Long, commentId: Long) {
+    override fun deleteComment(todoId: Long, commentId: Long, userId: Long) {
         val comment = getValidComment(commentId)
         isTodoAndCommentAreSame(todoId, comment)
+        if (userId != comment.userId) throw InfoNotMatchException("User ID does not match")
         commentRepository.delete(comment)
     }
 
@@ -63,6 +70,11 @@ class CommentServiceImpl(
 
     private fun getValidComment(commentId: Long): Comment {
         return commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
+    }
+
+    fun isOwner(commentId: Long, userId: Long): Boolean {
+        val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
+        return comment.userId == userId
     }
 
 

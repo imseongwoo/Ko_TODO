@@ -9,9 +9,9 @@ interface CommentService {
 
     fun getComment(todoId: Long, commentId: Long): CommentDTO
 
-    fun postComment(todoId: Long, commentPostDTO: CommentPostDTO): CommentDTO
+    fun postComment(todoId: Long, commentPostDTO: CommentPostDTO, userId: Long): CommentDTO
 
-    fun modifyComment(todoId: Long, commentId: Long, commentModifyDTO: CommentModifyDTO): CommentDTO
+    fun modifyComment(todoId: Long, commentId: Long, commentModifyDTO: CommentModifyDTO, userId: Long): CommentDTO
 
-    fun deleteComment(todoId: Long, commentId: Long)
+    fun deleteComment(todoId: Long, commentId: Long, userId: Long)
 }

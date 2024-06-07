@@ -16,6 +16,9 @@ class Comment(
     @Column(name = "password")
     var password: String,
 
+    @Column(name = "user_id", nullable = false)
+    var userId: Long,
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id")
     val todo: Todo
