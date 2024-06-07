@@ -21,10 +21,3 @@ class User(
     var id: Long? = null
 }
 
-fun User.toResponse(): UserResponse {
-    return UserResponse(
-        id = id!!,
-        email = email,
-        role = role.name,
-    )
-}

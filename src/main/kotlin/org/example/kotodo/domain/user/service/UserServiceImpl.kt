@@ -8,7 +8,6 @@ import org.example.kotodo.domain.user.dto.SignUpRequest
 import org.example.kotodo.domain.user.dto.UserResponse
 import org.example.kotodo.domain.user.model.User
 import org.example.kotodo.domain.user.model.UserRole
-import org.example.kotodo.domain.user.model.toResponse
 import org.example.kotodo.domain.user.repository.UserRepository
 import org.example.kotodo.infra.security.jwt.JwtPlugin
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -24,7 +23,7 @@ class UserServiceImpl(
     override fun login(request: LoginRequest): LoginResponse {
         val user = userRepository.findByEmail(request.email) ?: throw ModelNotFoundException("User", null)
 
-        if (user.role.name != request.role || !passwordEncoder.matches(request.password, user.password) ) {
+        if (user.role.name != request.role || !passwordEncoder.matches(request.password, user.password)) {
             throw InvalidCredentialException()
         }
 
@@ -41,7 +40,7 @@ class UserServiceImpl(
             throw IllegalStateException("Email is already in use")
         }
 
-        return userRepository.save(
+        val user = userRepository.save(
             User(
                 email = request.email,
                 password = passwordEncoder.encode(request.password),
@@ -51,7 +50,9 @@ class UserServiceImpl(
                     else -> throw IllegalArgumentException("Invalid role")
                 }
             )
-        ).toResponse()
+        )
+
+        return UserResponse.fromEntity(user)
     }
 
 }
