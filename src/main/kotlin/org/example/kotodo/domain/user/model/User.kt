@@ -1,7 +1,6 @@
 package org.example.kotodo.domain.user.model
 
 import jakarta.persistence.*
-import org.example.kotodo.domain.user.dto.UserResponse
 
 @Entity
 @Table(name = "app_user")
