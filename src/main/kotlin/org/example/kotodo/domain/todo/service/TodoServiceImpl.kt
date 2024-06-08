@@ -1,6 +1,7 @@
 package org.example.kotodo.domain.todo.service
 
 import org.example.kotodo.domain.common.exception.ModelNotFoundException
+import org.example.kotodo.domain.todo.dto.SearchKeywordDTO
 import org.example.kotodo.domain.todo.dto.TodoCreateDTO
 import org.example.kotodo.domain.todo.dto.TodoDTO
 import org.example.kotodo.domain.todo.dto.TodoModifyDTO
@@ -21,12 +22,8 @@ class TodoServiceImpl(
         return todo.toTodoDTO()
     }
 
-    override fun getTodoList(pageable: Pageable, writer: String?): Page<TodoDTO> {
-        val todos = if (writer != null) {
-            todoRepository.findByWriter(writer, pageable)
-        } else {
-            todoRepository.findAll(pageable)
-        }
+    override fun getTodoList(pageable: Pageable, searchKeywordDTO: SearchKeywordDTO?): Page<TodoDTO> {
+        val todos = todoRepository.getTodoList(pageable, searchKeywordDTO)
 
         return todos.map { it.toTodoDTO() }
     }

@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.23"
     kotlin("plugin.jpa") version "1.8.22"
     kotlin("plugin.noarg") version "1.8.22"
+    kotlin("kapt") version "1.8.22"
 }
 
 group = "org.example"
@@ -25,6 +26,8 @@ configurations {
 repositories {
     mavenCentral()
 }
+
+val queryDslVersion = "5.0.0"
 
 allOpen {
     annotation("jakarta.persistence.Entity")
@@ -51,6 +54,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
+    implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
+    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
 //    implementation("com.h2database:h2")
 
     runtimeOnly("org.postgresql:postgresql")

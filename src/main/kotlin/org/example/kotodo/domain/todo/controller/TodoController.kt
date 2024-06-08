@@ -2,6 +2,7 @@ package org.example.kotodo.domain.todo.controller
 
 import jakarta.validation.Valid
 import org.example.kotodo.domain.common.exception.InvalidateDTOError
+import org.example.kotodo.domain.todo.dto.SearchKeywordDTO
 import org.example.kotodo.domain.todo.dto.TodoCreateDTO
 import org.example.kotodo.domain.todo.dto.TodoDTO
 import org.example.kotodo.domain.todo.dto.TodoModifyDTO
@@ -30,9 +31,9 @@ class TodoController(
     @GetMapping
     fun getTodoList(
         @PageableDefault(size = 5) pageable: Pageable,
-        @RequestParam(required = false) writer: String?
+        searchKeywordDTO: SearchKeywordDTO?
     ): ResponseEntity<List<TodoDTO>> {
-        val todosPage = todoService.getTodoList(pageable, writer)
+        val todosPage = todoService.getTodoList(pageable, searchKeywordDTO)
         val todosContent = todosPage.content
         return ResponseEntity.status(HttpStatus.OK)
             .body(todosContent)
