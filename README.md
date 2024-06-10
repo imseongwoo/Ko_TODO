@@ -7,7 +7,7 @@
 
 ### 🔍 Usecase Diagram
 <br>
-<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/Ko_TODO/assets/26344560/d2e227f4-b097-4fbf-8761-f727df881e70">
+<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/Ko_TODO/assets/26344560/db6e095f-8d1d-4b5f-a3fe-ae83b0581ffb">
 
 <br/>
 <br/>
@@ -15,7 +15,7 @@
 
 ### 🎨 ERD
 
-<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/snore_tracker/assets/26344560/b513ede7-205a-445d-ab86-d66f1950812d" style="margin-right: 10px;"/>
+<img width="806" height="400" alt="image" src="https://github.com/imseongwoo/Ko_TODO/assets/26344560/3d8948c5-fa46-4019-a543-ab528ea4c8e1" style="margin-right: 10px;"/>
 
 
 ### [🎨API 명세](https://imseongwoo.notion.site/TODO-API-97ce214d3ce84fcda673e6c328f1a5fa?pvs=4)
